@@ -10,7 +10,7 @@ pipeline{
             }
             steps{
                 echo "Hell World"                
-                sh "ansible devservers -m ping --private-key ~/.ssh/pf6-keypair.pem -u ec2-user"
+                sh "ansible devservers -m ping --private-key ~/.ssh/pf6-keypair.pem"
             }
         }        
     }
