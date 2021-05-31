@@ -10,7 +10,7 @@ pipeline{
             }
             steps{
                 
-                sh "ansible devservers -m ping --private-key ~/.ssh/pf6-keypair.pem"
+                sh "ansible devservers -m ping --private-key /home/ec2-user/.ssh/pf6-keypair_J.pem"
                 
             }
         }        
