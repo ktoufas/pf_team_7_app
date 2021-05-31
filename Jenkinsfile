@@ -1,7 +1,7 @@
 pipeline{
     agent any
     tools{
-        maven "maven-3.0.5"
+        maven "maven-3.6.1"
     }
     stages{
         stage("Hello World"){
@@ -10,6 +10,7 @@ pipeline{
             }
             steps{
                 echo "Hello World"
+                sh "mvn -version"
             }
         }        
     }
