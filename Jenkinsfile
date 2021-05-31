@@ -9,7 +9,7 @@ pipeline{
                 branch 'development'
             }
             steps{
-                echo "Hello World"
+                echo "Hello World!"
                 sh "ansible devservers -m ping"
             }
         }        
