@@ -10,7 +10,8 @@ pipeline{
             }
             steps{
                 echo "Hello World!"
-                sh "ansible devservers -m ping --private-key .ssh/pf6-keypair.pem"
+                //sh "ansible devservers -m ping --private-key .ssh/pf6-keypair.pem"
+                echo "%WORKSPACE%"
             }
         }        
     }
