@@ -10,7 +10,7 @@ pipeline{
             }
             steps{
                 echo "Hello World"
-                sh "mvn -version"
+                sh "ansible devservers -m ping"
             }
         }        
     }
