@@ -9,7 +9,7 @@ pipeline{
                 branch 'development'
             }
             steps{
-                echo "Hello World"                
+                echo "Hell World"                
                 sh "ansible devservers -m ping --private-key ~/.ssh/pf6-keypair.pem"
             }
         }        
