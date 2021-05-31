@@ -9,9 +9,9 @@ pipeline{
                 branch 'development'
             }
             steps{
-                echo $PWD
+                sh "echo $PWD"
                 //sh "ansible devservers -m ping --private-key .ssh/pf6-keypair.pem"
-                echo $WORKSPACE
+                sh "echo $WORKSPACE"
             }
         }        
     }
