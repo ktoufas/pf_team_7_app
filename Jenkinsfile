@@ -4,7 +4,7 @@ pipeline{
         maven "maven-3.6.1"
     }
     stages{
-        stage("Hello World"){
+        stage("Development Branch"){
             when{
                 branch 'development'
             }
@@ -12,6 +12,9 @@ pipeline{
                 echo "Hell World"                
                 sh "ansible devservers -m ping --private-key ~/.ssh/pf6-keypair.pem"
             }
-        }        
+        }
+        stage("Production Branch"){
+
+        }
     }
 }
