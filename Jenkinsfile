@@ -10,7 +10,7 @@ pipeline{
             }
             steps{
                 echo "Development Branch Steps"                
-                sh "ansible devservers -m ping --private-key ~/.ssh/pf6-keypair.pem"
+                sh "ansible-playbook dev_playbook.yml --limit devservers"
             }
         }
         stage("Production Branch"){
