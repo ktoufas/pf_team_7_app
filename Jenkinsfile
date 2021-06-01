@@ -10,7 +10,7 @@ pipeline{
             }
             steps{
                 echo "Development Branch Steps"                
-                sh "ansible-playbook dev_playbook.yml --limit devservers"
+                sh "ansible-playbook /etc/ansible/dev_playbook.yml --limit devservers"
             }
         }
         stage("Production Branch"){
