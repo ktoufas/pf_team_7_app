@@ -19,7 +19,7 @@ pipeline{
             }
             steps{
                 echo "Production Branch Steps"
-                sh "ansible devservers -m ping"
+                sh "ansible webservers -m ping"
             }
 
         }
