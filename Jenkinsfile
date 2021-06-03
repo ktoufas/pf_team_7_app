@@ -10,7 +10,7 @@ pipeline{
             }
             stages{
                 stage("Clean old mvn output"){
-                    
+                    echo "clean old mvn"
                 }
             }
             steps{
