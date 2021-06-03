@@ -28,7 +28,7 @@ pipeline{
                         }
                         stage("Package application"){
                             steps{
-                                sh "mvn package"
+                                sh "mvn package" //-DoutputDirectory=<path>
                             }
                         }
 
