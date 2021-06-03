@@ -11,7 +11,7 @@ pipeline{
             steps{
                 echo "Development Branch Steps"                
                 //sh "ansible-playbook /etc/ansible/dev_playbook.yml --limit devservers"
-                echo "${GIT_COMMITER_EMAIL}"
+                sh "echo ${GIT_COMMITER_EMAIL}"
             }
         }
         stage("Production Branch"){
