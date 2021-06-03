@@ -8,6 +8,11 @@ pipeline{
             when{
                 branch 'development'
             }
+            stages{
+                stage("Clean old mvn output"){
+                    
+                }
+            }
             steps{
                 echo "Development Branch Steps"                
                 //sh "ansible-playbook /etc/ansible/dev_playbook.yml --limit devservers"  
