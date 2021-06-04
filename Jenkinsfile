@@ -28,7 +28,7 @@ pipeline{
                         }
                         stage("Package application"){
                             steps{
-                                sh "mvn package -D outputDirectory=/home/ec2-user/jenkins_output/"
+                                sh "mvn package -DoutputDirectory=/home/ec2-user/jenkins_output/"
                             }
                         }
 
