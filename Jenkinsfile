@@ -147,7 +147,7 @@ pipeline{
                 stage("Deploy Verification"){
                     steps{
                         input{
-                            message "Are you sure you want to deploy the application?"
+                            message: "Are you sure you want to deploy the application?"
                             submitter "pf_team_7"
                         }
                     }
