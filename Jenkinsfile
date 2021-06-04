@@ -29,7 +29,8 @@ pipeline{
                         stage("Package application"){
                             steps{
                                 sh "mvn package -DoutputDirectory=/home/ec2-user/jenkins_output/"
-                                sh "echo pf_team_7_${env.BRANCH_NAME}"
+                                sh "echo ${WORKSPACE} --/pf_team_7_${env.BRANCH_NAME}"
+                                sh "echo -- ${env.CHANGE_AUTHOR} -- ${env.CHANGE_AUTHOR_EMAIL}"
                             }
                         }
 
