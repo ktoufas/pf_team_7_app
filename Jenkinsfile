@@ -149,6 +149,9 @@ pipeline{
                         message "Are you sure you want to deploy the application?"
                         submitter "pf_team_7"
                     }
+                    steps{
+                        
+                    }
                 }
                 stage("Push image to repository"){
                     steps{
