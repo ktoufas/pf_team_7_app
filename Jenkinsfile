@@ -146,10 +146,7 @@ pipeline{
                 }
                 stage("Deploy Verification"){
                     steps{
-                        input{
-                            message: "Are you sure you want to deploy the application?"
-                            submitter "pf_team_7"
-                        }
+                        input("Are you sure you want to deploy the application?")
                     }
                 }
                 stage("Push image to repository"){
