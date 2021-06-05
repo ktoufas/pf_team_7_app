@@ -2,7 +2,7 @@ pipeline{
     environment{
         dockerImage = ''
         registry = 'ktoufas/to_do_app'
-        version = '2.3'
+        version = '2.4'
     }
     agent any
     tools{
@@ -34,7 +34,6 @@ pipeline{
                         stage("Package application"){
                             steps{
                                 sh "mvn clean package"
-                                 //${WORKSPACE} Herewillfind the jr le and dockerfile
                             }
                         }
 
@@ -61,7 +60,8 @@ pipeline{
                 stage("Create docker image"){
                     steps{
                         script{
-                            dockerImage = docker.build "${registry}:${version} --build-arg DB_HOST=development-rds.cinmmc08wjk8.eu-west-1.rds.amazonaws.com"
+                            //dockerImage = docker.build "${registry}:${version}"
+                            sh "docker build -t ${registry}:${tag} --build-arg DB_HOST=development-rds.cinmmc08wjk8.eu-west-1.rds.amazonaws.com"
                         }                     
                     }
                 }
@@ -69,8 +69,8 @@ pipeline{
                     steps{
                         script{
                             docker.withRegistry('','dockerRegistry'){
-                                dockerImage.push()
-                                //sh "docker push ktoufas/to_do_app:1.0"
+                                //dockerImage.push()
+                                sh "docker push ${registry}:${version}"
                             }
                         }
 
