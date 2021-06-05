@@ -2,7 +2,7 @@ pipeline{
     environment{
         dockerImage = ''
         registry = 'ktoufas/to_do_app'
-        version = '2.9'
+        version = '2.9.8'
     }
     agent any
     tools{
