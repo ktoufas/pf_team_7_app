@@ -2,7 +2,7 @@ pipeline{
     environment{
         dockerImage = ''
         registry = 'ktoufas/to_do_app'
-        version = '2.4'
+        version = '2.7'
     }
     agent any
     tools{
@@ -75,10 +75,10 @@ pipeline{
                 stage("Deploy application"){
                     steps{            
                         //sh "ansible-playbook /etc/ansible/dev_playbook.yml -e 'version=${version}' --limit devservers"
-                        ansiblePlaybook('/etc/ansible/dev_playbook.yml'){
-                            limit('devservers')
+                        ansiblePlaybook("/etc/ansible/dev_playbook.yml"){
+                            limit("devservers")
                             extraVars {
-                                extraVar('version', version)
+                                extraVar("version","${version}")
                             }
                         }
                     }
