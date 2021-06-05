@@ -60,7 +60,7 @@ pipeline{
                 stage("Create docker image"){
                     steps{
                         script{
-                            dockerImage = docker.build "${registry}:1.0"
+                            dockerImage = docker.build "${registry}:2.0"
                         }                     
                     }
                 }
@@ -77,7 +77,7 @@ pipeline{
                 }
                 stage("Deploy application"){
                     steps{            
-                        sh 'ansible-playbook /etc/ansible/dev_playbook.yml -e "version=1.0" --limit devservers'
+                        sh 'ansible-playbook /etc/ansible/dev_playbook.yml -e "version=2.0" --limit devservers'
                     }
                 }
             }
