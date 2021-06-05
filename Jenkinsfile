@@ -2,7 +2,7 @@ pipeline{
     environment{
         dockerImage = ''
         registry = 'ktoufas/to_do_app'
-        version = '2.9.8'
+        version = '3.0.0'
     }
     agent any
     tools{
@@ -59,7 +59,7 @@ pipeline{
                 }
                 stage("Create docker image"){
                     steps{
-                            sh "docker build -t ${registry}:${version} --file Dockerfile.dev"                   
+                            sh "docker build -t ${registry}:${version} --file Dockerfile.dev ."                   
                     }
                 }
                 stage("Push image to repository"){
