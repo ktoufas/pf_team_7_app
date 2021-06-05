@@ -28,7 +28,7 @@ pipeline{
                         }
                         stage("Package application"){
                             steps{
-                                sh "mvn package -DoutputDirectory=/home/ec2-user/jenkins_output/"
+                                sh "mvn package"
                                  //${WORKSPACE} Here will find the jar file and dockerfile
                             }
                         }
@@ -40,7 +40,7 @@ pipeline{
                                 subject: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
                                 body: """<p>SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
                                         <p>Check console output at <a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a></p>""",
-                                recipientProviders: [developers()] //SEND EMAIL TO THE PERSON WHOSE COMMIT TRIGGERED THE BUILD culprits()
+                                recipientProviders: [culprits()] //SEND EMAIL TO THE PERSON WHOSE COMMIT TRIGGERED THE BUILD culprits()
                             )
                         }
                         failure{
@@ -55,19 +55,19 @@ pipeline{
                 }
                 stage("Create docker image"){
                     steps{
-                        echo "Creating docker image with development db link"
+                        sh 'docker build -t ktoufas/to_do_app:1.0'
                     }
                 }
                 stage("Push image to repository"){
                     steps{
-                        echo "Pushing image to repository"
+                        docker.withRegistry("",docekrRegistry){
+                            sh "docker push ktoufas/to_do_app:1.0"
+                        }
                     }
-
                 }
                 stage("Deploy application"){
-                    steps{
-                        echo "Development Branch Steps"                
-                        //sh "ansible-playbook /etc/ansible/dev_playbook.yml --limit devservers"  
+                    steps{            
+                        sh 'ansible-playbook /etc/ansible/dev_playbook.yml -e "version=1.0" --limit devservers'
                     }
                 }
             }
