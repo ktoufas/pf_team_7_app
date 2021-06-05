@@ -59,17 +59,13 @@ pipeline{
                 }
                 stage("Create docker image"){
                     steps{
-                        //script{
-                            //dockerImage = docker.build "${registry}:${version}"
-                            sh "docker build -t ${registry}:${version} --build-arg DB_HOST=development-rds.cinmmc08wjk8.eu-west-1.rds.amazonaws.com ."
-                        //}                     
+                            sh "docker build -t ${registry}:${version} --build-arg DB_HOST=development-rds.cinmmc08wjk8.eu-west-1.rds.amazonaws.com ."                   
                     }
                 }
                 stage("Push image to repository"){
                     steps{
                         script{
                             docker.withRegistry('','dockerRegistry'){
-                                //dockerImage.push()
                                 sh "docker push ${registry}:${version}"
                             }
                         }
@@ -78,7 +74,13 @@ pipeline{
                 }
                 stage("Deploy application"){
                     steps{            
-                        sh "ansible-playbook /etc/ansible/dev_playbook.yml -e 'version=${version}' --limit devservers"
+                        //sh "ansible-playbook /etc/ansible/dev_playbook.yml -e 'version=${version}' --limit devservers"
+                        ansiblePlaybook('/etc/ansible/dev_playbook.yml'){
+                            limit('devservers')
+                            extraVars {
+                                extraVar('version', version)
+                            }
+                        }
                     }
                 }
             }
