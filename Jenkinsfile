@@ -60,9 +60,12 @@ pipeline{
                 }
                 stage("Push image to repository"){
                     steps{
-                        docker.withRegistry("",docekrRegistry){
-                            sh "docker push ktoufas/to_do_app:1.0"
+                        script{
+                            docker.withRegistry("",dockerRegistry){
+                                sh "docker push ktoufas/to_do_app:1.0"
+                            }
                         }
+
                     }
                 }
                 stage("Deploy application"){
