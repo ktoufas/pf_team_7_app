@@ -3,7 +3,7 @@ FROM openjdk:8
 WORKDIR /app
 COPY target/toDoAppWithLogin.jar .
 
-EXPOSE 80
+EXPOSE 8080
 
 ENTRYPOINT ["java", "-cp", "toDoAppWithLogin.jar", \
 "org.springframework.boot.loader.JarLauncher", "--my_sql.host=development-rds.cinmmc08wjk8.eu-west-1.rds.amazonaws.com", \
