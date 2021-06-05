@@ -32,7 +32,7 @@ pipeline{
                         }
                         stage("Package application"){
                             steps{
-                                sh "mvn package"
+                                sh "mvn clean package"
                                  //${WORKSPACE} Herewillfind the jr le and dockerfile
                             }
                         }
