@@ -59,7 +59,7 @@ pipeline{
                 }
                 stage("Create docker image"){
                     steps{
-                            sh "docker build -t ${registry}:${version} --build-arg DB_HOST=development-rds.cinmmc08wjk8.eu-west-1.rds.amazonaws.com ."                   
+                            sh "docker build -t ${registry}:${version} --file Dockerfile.dev"                   
                     }
                 }
                 stage("Push image to repository"){
