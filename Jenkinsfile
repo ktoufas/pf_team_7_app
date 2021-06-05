@@ -2,6 +2,7 @@ pipeline{
     environment{
         dockerImage = ''
         registry = 'ktoufas/to_do_app'
+        version = '2.3'
     }
     agent any
     tools{
@@ -60,7 +61,7 @@ pipeline{
                 stage("Create docker image"){
                     steps{
                         script{
-                            dockerImage = docker.build "${registry}:2.1"
+                            dockerImage = docker.build "${registry}:${version} --build-arg DB_HOST=development-rds.cinmmc08wjk8.eu-west-1.rds.amazonaws.com"
                         }                     
                     }
                 }
@@ -77,7 +78,7 @@ pipeline{
                 }
                 stage("Deploy application"){
                     steps{            
-                        sh 'ansible-playbook /etc/ansible/dev_playbook.yml -e "version=2.1" --limit devservers'
+                        sh "ansible-playbook /etc/ansible/dev_playbook.yml -e 'version=${version}' --limit devservers"
                     }
                 }
             }
