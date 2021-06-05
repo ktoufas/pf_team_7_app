@@ -29,7 +29,7 @@ pipeline{
                         stage("Package application"){
                             steps{
                                 sh "mvn package"
-                                 //${WORKSPACE} Here will find the jar fle and dockerfile
+                                 //${WORKSPACE} Here will find the jar file and dockerfile
                             }
                         }
 
