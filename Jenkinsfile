@@ -55,7 +55,7 @@ pipeline{
                 }
                 stage("Create docker image"){
                     steps{
-                        sh "sudo docker build -t ktoufas/to_do_app:1.0 ${WORKSPACE}/"
+                        sh "docker build -t ktoufas/to_do_app:1.0 ${WORKSPACE}/"
                     }
                 }
                 stage("Push image to repository"){
