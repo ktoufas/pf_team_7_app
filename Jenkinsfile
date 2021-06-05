@@ -1,4 +1,8 @@
 pipeline{
+    environment{
+        dockerImage = ''
+        registry = 'ktoufas/to_do_app'
+    }
     agent any
     tools{
         maven "maven-3.6.1"
@@ -55,14 +59,17 @@ pipeline{
                 }
                 stage("Create docker image"){
                     steps{
-                        sh "docker build -t ktoufas/to_do_app:1.0 ${WORKSPACE}/"
+                        script{
+                            dockerImage = docker.build "${registry}:1.0"
+                        }                     
                     }
                 }
                 stage("Push image to repository"){
                     steps{
                         script{
-                            docker.withRegistry("",dockerRegistry){
-                                sh "docker push ktoufas/to_do_app:1.0"
+                            docker.withRegistry('','dockerRegistry'){
+                                dockerImage.push()
+                                //sh "docker push ktoufas/to_do_app:1.0"
                             }
                         }
 
