@@ -61,7 +61,7 @@ pipeline{
                     steps{
                         //script{
                             //dockerImage = docker.build "${registry}:${version}"
-                            sh "docker build -t ${registry}:${tag} --build-arg DB_HOST=development-rds.cinmmc08wjk8.eu-west-1.rds.amazonaws.com"
+                            sh "docker build -t ${registry}:${version} --build-arg DB_HOST=development-rds.cinmmc08wjk8.eu-west-1.rds.amazonaws.com"
                         //}                     
                     }
                 }
