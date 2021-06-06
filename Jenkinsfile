@@ -132,7 +132,7 @@ pipeline{
                     steps{
                         emailext(
                         subject: "Deployment verification: ${env.JOB_NAME}",
-                        body: "Verify deployment to production at: ${env.BUILD_URL}/input",
+                        body: "Verify deployment to production at: ${env.BUILD_URL}input",
                         to: "ktoufas@gmail.com"
                         )
                         input("Are you sure you want to deploy the application?")
