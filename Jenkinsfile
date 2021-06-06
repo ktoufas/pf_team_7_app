@@ -69,7 +69,6 @@ pipeline{
                                 sh "docker push ${registry}:${version}"
                             }
                         }
-
                     }
                 }
                 stage("Deploy application"){
@@ -81,14 +80,6 @@ pipeline{
                             extraVars: [
                                 version: "${version}"
                             ])
-                        /*
-                        ansiblePlaybook("/etc/ansible/dev_playbook.yml"){
-                            limit("devservers")
-                            extraVars {
-                                extraVar("version","${version}")
-                            }
-                        }
-                        */
                     }
                 }
             }
@@ -136,7 +127,6 @@ pipeline{
                         stage("Package application"){
                             steps{
                                 sh "mvn package"
-                                 //${WORKSPACE} Here will find the jar file and dockerfile
                             }
                         }
 
@@ -162,7 +152,7 @@ pipeline{
                 }
                 stage("Create docker image"){
                     steps{
-                        echo "Creating docker image with development db link"
+                        sh "docker build -t ${registry}:${version} --file Dockerfile.prod ."                   
                     }
                 }
                 stage("Deploy Verification"){
@@ -172,14 +162,22 @@ pipeline{
                 }
                 stage("Push image to repository"){
                     steps{
-                        echo "Pushing image to repository"
+                        script{
+                            docker.withRegistry('','dockerRegistry'){
+                                sh "docker push ${registry}:${version}"
+                            }
+                        }
                     }
 
                 }
                 stage("Deploy application"){
                     steps{
-                        echo "Development Branch Steps"                
-                        //sh "ansible-playbook /etc/ansible/dev_playbook.yml --limit prodservers"  
+                        ansiblePlaybook(
+                            playbook: "/etc/ansible/dev_playbook.yml", 
+                            limit: "prodservers", 
+                            extraVars: [
+                                version: "${version}"
+                            ])  
                     }
                 }
             }
