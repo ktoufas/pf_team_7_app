@@ -39,19 +39,11 @@ pipeline{
 
                     }
                     post{
-                        success{
-                            emailext(
-                                subject: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-                                body: """<p>SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
-                                        <p>Check console output at <a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a></p>""",
-                                recipientProviders: [culprits()] //SEND EMAIL TO THE PERSON WHOSE COMMIT TRIGGERED THE BUILD culprits()
-                            )
-                        }
                         failure{
                             emailext(
-                                subject: "FAILURE: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-                                body: """<p>FAILURE: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
-                                        <p>Check console output at <a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a></p>""",
+                                subject: "FAILURE: Job ${env.JOB_NAME} [${env.BUILD_NUMBER}]",
+                                body: """FAILURE: Job ${env.JOB_NAME} [${env.BUILD_NUMBER}]:
+                                        Check console output at <a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>""",
                                 recipientProviders: [culprits()] //SEND EMAIL TO THE PERSON WHOSE COMMIT TRIGGERED THE BUILD
                             )
                         }
@@ -86,18 +78,17 @@ pipeline{
             post{
                 success{
                     emailext(
-                        subject: "SUCCESSFUL: Deployment to development'${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-                        body: """<p>SUCCESSFUL: Deployment '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
-                                    <p>Check console output at <a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a></p>""",
-                        to: "ktoufas@gmail.com"
+                        subject: "SUCCESSFUL: Deployment to development environment | ${env.JOB_NAME} | BUILD NUMBER: [${env.BUILD_NUMBER}]",
+                        body: "SUCCESSFUL: Deployment to development environment | ${env.JOB_NAME} | BUILD NUMBER: [${env.BUILD_NUMBER}]",
+                        recipientProviders: [culprits()]
                     )
                 }
                 failure{
                     emailext(
-                        subject: "FAILURE: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-                        body: """<p>FAILURE: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
-                                <p>Check console output at <a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a></p>""",
-                        to: "ktoufas@gmail.com" 
+                        subject: "FAILURE: Deployment to development environment | '${env.JOB_NAME}| BUILD NUMBER: [${env.BUILD_NUMBER}]'",
+                        body: """FAILURE: Deployment to development environment | ${env.JOB_NAME}| BUILD NUMBER: [${env.BUILD_NUMBER}]
+                                Check console output at ${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]""",
+                        recipientProviders: [culprits()] 
                     )
                 }
             }             
@@ -140,8 +131,8 @@ pipeline{
                 stage("Deploy Verification"){
                     steps{
                         emailext(
-                        subject: "Deployment verification: '${env.JOB_NAME}'",
-                        body: """<p>Verify deployment to production at <a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a></p>""",
+                        subject: "Deployment verification: ${env.JOB_NAME}",
+                        body: "Verify deployment to production at: ${env.BUILD_URL}/input",
                         to: "ktoufas@gmail.com"
                         )
                         input("Are you sure you want to deploy the application?")
@@ -171,17 +162,16 @@ pipeline{
             post{
                 success{
                     emailext(
-                        subject: "SUCCESSFUL: Deployment to production '${env.JOB_NAME}'",
-                        body: """<p>SUCCESSFUL: Deployment '${env.JOB_NAME}':</p>
-                                    <p>Check console output at <a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a></p>""",
+                        subject: "SUCCESSFUL: Deployment to production",
+                        body: "SUCCESSFUL: Deployment to production environment | ${env.JOB_NAME}",
                         to: "ktoufas@gmail.com"
                     )
                 }
                 failure{
                     emailext(
-                        subject: "FAILED: Deployment to production '${env.JOB_NAME}'",
-                        body: """<p>FAILED: Deployment to production '${env.JOB_NAME}':</p>
-                                <p>Check console output at <a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a></p>""",
+                        subject: "FAILURE: Deployment to production",
+                        body: """FAILURE: Deployment to production environment | ${env.JOB_NAME}
+                                Check console output at ${env.BUILD_URL}""",
                         to: "ktoufas@gmail.com"
                     )
                 }
