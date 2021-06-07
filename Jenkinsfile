@@ -67,7 +67,7 @@ pipeline{
                     steps{            
                         //sh "ansible-playbook /etc/ansible/dev_playbook.yml -e 'version=${version}' --limit devservers"
                         ansiblePlaybook(
-                            playbook: "/etc/ansible/dev_playbook.yml", 
+                            playbook: "Playbook.yml", 
                             limit: "devservers", 
                             extraVars: [
                                 version: "${version}"
