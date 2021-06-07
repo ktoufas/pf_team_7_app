@@ -4,7 +4,7 @@
   serial: 40%
   become: true
   vars_files:
-    - docker_config.yml
+    - /etc/ansible/docker_config.yml
 
   tasks:
     - name: Install docker
