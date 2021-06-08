@@ -1,4 +1,4 @@
-pipeline
+pipeline{
     environment{
         dockerImage = ''
         registry = 'ktoufas/to_do_app'
